@@ -45,7 +45,7 @@ const { Meta } = Card;
 
 function AppFeatures(props) {
     return (
-        <div className="block featureBlock bgGray">
+        <div id="features" className="block featureBlock bgGray">
             <div className="container-fluid">
                 <div className="titleHolder">
                     <h2>Key Features and Benefits</h2>
@@ -54,7 +54,7 @@ function AppFeatures(props) {
                 <Row gutter={[16, 16]}>
                     {items.map(item => {
                         return (
-                            <Col span={8} key={item.key}>
+                            <Col md={{ span: 8 }} sm={{ span: 12 }} key={item.key}>
                                 <Card
                                     hoverable
                                     cover={<img alt={item.title} src={item.img} />}

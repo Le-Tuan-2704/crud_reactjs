@@ -12,7 +12,7 @@ function AppWorks(props) {
         setIsModalVisible(false);
     };
     return (
-        <div className="block worksBlock">
+        <div id="work" className="block worksBlock">
             <div className="container-fluid">
                 <div className="titleHolder">
                     <h2>How it works</h2>

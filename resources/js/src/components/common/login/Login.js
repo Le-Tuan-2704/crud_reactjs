@@ -1,27 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React, { useContext } from 'react';
 import 'antd/dist/antd.css';
-
 import { Form, Input, Button, Checkbox, Card, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './Login.css'
-import Item from 'antd/lib/list/Item';
+import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { StatusLoginContext } from '../../../contexts/StatusLoginContext';
 
 Login.propTypes = {
 
 };
 
+const accounts = [
+    {
+        name: "tuan",
+        password: "123"
+    },
+    {
+        name: "abc",
+        password: "123"
+    },
+    {
+        name: "def",
+        password: "123"
+    },
+]
 function Login(props) {
-
+    let history = useHistory();
+    const { changeStatus } = useContext(StatusLoginContext);
+    console.log(changeStatus);
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
+        accounts.map(account => {
+            if (account.name == values.username && account.password == values.password) {
+                changeStatus();
+                history.push("/pape");
+            }
+        })
+
     };
 
     return (
-        <Row justify="space-around" align="middle" style={{ marginTop: 70 }}>
-            <Col span={12} offset={6}>
-                <Card title="HỆ THỐNG QUẢN TRỊ" orientation="center" bordered={false} style={{ width: 400 }}>
+        <Row justify="center" align="middle" style={{ marginTop: 70 }}>
+            <Col >
+                <Card title="Login" orientation="center" bordered={false} style={{ width: 400 }}>
                     <Form
                         name="normal_login"
                         className="login-form"
@@ -69,7 +91,7 @@ function Login(props) {
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="login-form-button" block>
                                 Log in</Button>
-                            <span align="center">Or <a href="">register now!</a></span>
+                            <span align="center">Or <Link to="/register">register now!</Link></span>
 
                         </Form.Item>
                     </Form>

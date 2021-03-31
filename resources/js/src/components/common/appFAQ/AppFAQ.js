@@ -39,7 +39,7 @@ const items = [
 
 function AppFAQ(props) {
     return (
-        <div className="block faqBlock">
+        <div id="faq" className="block faqBlock">
             <div className="container">
                 <div className="titleHolder">
                     <h2>Frequently Asked Questions</h2>

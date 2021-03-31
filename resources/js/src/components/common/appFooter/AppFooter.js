@@ -11,15 +11,15 @@ function AppFooter(props) {
                 </div>
                 <div>
                     <ul className="socials">
-                        <li><a href="#"></a><i class="fab fa-facebook-f"></i></li>
-                        <li><a href="#"></a><i class="fab fa-twitter"></i></li>
-                        <li><a href="#"></a><i class="fab fa-linkedin-in"></i></li>
-                        <li><a href="#"></a><i class="fab fa-pinterest-p"></i></li>
-                        <li><a href="#"></a><i class="fab fa-instagram"></i></li>
+                        <li><a href="#"></a><i className="fab fa-facebook-f"></i></li>
+                        <li><a href="#"></a><i className="fab fa-twitter"></i></li>
+                        <li><a href="#"></a><i className="fab fa-linkedin-in"></i></li>
+                        <li><a href="#"></a><i className="fab fa-pinterest-p"></i></li>
+                        <li><a href="#"></a><i className="fab fa-instagram"></i></li>
                     </ul>
                     <div className="copyright">Copyright &copy; 2021 Tech</div>
                     <BackTop>
-                        <div className="goTop"><i class="fas fa-arrow-circle-up"></i></div>
+                        <div className="goTop"><i className="fas fa-arrow-circle-up"></i></div>
                     </BackTop>
                 </div>
             </div>
