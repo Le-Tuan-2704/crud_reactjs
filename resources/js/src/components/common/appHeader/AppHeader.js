@@ -4,7 +4,7 @@ const { Link } = Anchor;
 import React, { useContext, useState } from 'react';
 import { StatusLoginContext } from '../../../contexts/StatusLoginContext';
 
-function showHeaderLogined() {
+function showHeaderLogined(props) {
     const [visible, setVisible] = useState(false);
     const showDrawer = () => {
         setVisible(true);
@@ -52,7 +52,7 @@ function showHeaderLogined() {
 
 
 function AppHeader(props) {
-    const statusLogin = useContext(StatusLoginContext);
+    const { status } = useContext(StatusLoginContext);
 
     return (
         <div className="container-fluid">
@@ -62,7 +62,7 @@ function AppHeader(props) {
                     <a href="http://bibekshakya.com/demo/react/antdesign/tech/#hero"> Tech</a>
                 </div>
                 {
-                    statusLogin.status ? showHeaderLogined() : null
+                    status ? showHeaderLogined() : null
                 }
 
             </div>

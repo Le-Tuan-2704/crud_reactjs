@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 // Route::get('{path?}', function () {
 //     return view('index');
 // })->where('path', '[a-zA-Z0-9-/]+');
-Route::get("/", "IndexControler");
-Route::get("/login", "IndexControler");
-Route::get("/pape", "IndexControler");
-Route::get("/register", "IndexControler");
+
+// Route::get('/', 'App\Http\Controllers\IndexController@show');
+
+Route::group(['prefix' => '/'], function(){
+    Route::get('/', 'App\Http\Controllers\IndexController@show');
+    Route::get('/pape', 'App\Http\Controllers\IndexController@show');
+    Route::get('/register', 'App\Http\Controllers\IndexController@show');
+});
