@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
-// Route::get("login", "UserController");
+// Route::get('{path?}', function () {
+//     return view('index');
+// })->where('path', '[a-zA-Z0-9-/]+');
+Route::get("/", "IndexControler");
+Route::get("/login", "IndexControler");
+Route::get("/pape", "IndexControler");
+Route::get("/register", "IndexControler");
