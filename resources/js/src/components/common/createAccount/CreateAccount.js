@@ -1,12 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, Card, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function CreateAccount(props) {
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const [newAccount, setNewAccount] = useState({
+        name: "",
+        email: "",
+        password: ""
+    })
+
+
+    useEffect(() => {
+        async function connectApiRegister() {
+            axios({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/api/register',
+                data: newAccount
+            }).then(res => {
+                console.log(res.data);
+                // if (res.data.code == 200) {
+                //     console.log("register thanh cong");
+                // } else {
+                //     console.log("error register");
+                // }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+        connectApiRegister();
+    }, [newAccount]);
+
+
+    const onSubmit = (values) => {
+        setNewAccount({
+            name: values.name,
+            email: values.email,
+            password: values.password
+        });
+        // console.log(values);
     };
 
     return (
@@ -19,11 +53,11 @@ function CreateAccount(props) {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={onFinish}
+                        onFinish={onSubmit}
                     >
 
                         <Form.Item
-                            name="username"
+                            name="name"
                             rules={[
                                 {
                                     required: true,
@@ -31,7 +65,26 @@ function CreateAccount(props) {
                                 },
                             ]}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                            <Input
+                                name="name"
+                                type="text"
+                                prefix={<UserOutlined className="site-form-item-icon" />}
+                                placeholder="Username" />
+                        </Form.Item>
+                        <Form.Item
+                            name="email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your Email!',
+                                },
+                            ]}
+                        >
+                            <Input
+                                name="email"
+                                type="email"
+                                prefix={<UserOutlined className="site-form-item-icon" />}
+                                placeholder="Email" />
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -43,6 +96,7 @@ function CreateAccount(props) {
                             ]}
                         >
                             <Input
+                                name="password"
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
@@ -50,8 +104,8 @@ function CreateAccount(props) {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" onClick="checkAccount" className="login-form-button" block>
-                                Log in</Button>
+                            <Button type="primary" htmlType="submit" className="login-form-button" block>
+                                New Account</Button>
                             <span align="center">Or <Link to="/">Login</Link></span>
 
                         </Form.Item>

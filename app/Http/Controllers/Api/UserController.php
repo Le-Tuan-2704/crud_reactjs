@@ -55,10 +55,18 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        $role = 1;
+        $checkEmail = User::where('email', $request->email)->first();
+        if (($checkEmail)) {
+            return response()->json([
+                'code' => 404,
+                'messinger' => 'email da ton tai'
+            ], 201);
+        }
 
         $userCreate = User::create([
             'full_name' => $request->name,
-            'role' => $request->role,
+            'role' => $role,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
