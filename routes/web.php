@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', 'App\Http\Controllers\IndexController@show');
 
 Route::group(['prefix' => '/'], function(){
-    Route::get('/', 'App\Http\Controllers\IndexController@show');
-    Route::get('/pape', 'App\Http\Controllers\IndexController@show');
-    Route::get('/register', 'App\Http\Controllers\IndexController@show');
+    Route::get('/', 'IndexController@show');
+    Route::get('/pape', 'IndexController@show');
+    Route::get('/register', 'IndexController@show');
 });

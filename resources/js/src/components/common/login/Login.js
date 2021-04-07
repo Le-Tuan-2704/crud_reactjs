@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Form, Input, Button, Checkbox, Card, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -6,39 +6,51 @@ import './Login.css'
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import { StatusLoginContext } from '../../../contexts/StatusLoginContext';
+import axios from 'axios';
 
 Login.propTypes = {
 
 };
 
-const accounts = [
-    {
-        name: "tuan",
-        password: "123"
-    },
-    {
-        name: "abc",
-        password: "123"
-    },
-    {
-        name: "def",
-        password: "123"
-    },
-]
-function Login(props) {
-    let history = useHistory();
-    const { changeStatus } = useContext(StatusLoginContext);
-    console.log(changeStatus);
-    const onFinish = (values) => {
-        // console.log('Received values of form: ', values);
-        accounts.map(account => {
-            if (account.name == values.username && account.password == values.password) {
-                changeStatus();
-                history.push("/pape");
-            }
-        })
 
+function Login(props) {
+
+    const { changeStatus } = useContext(StatusLoginContext);
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    })
+    let history = useHistory();
+
+    useEffect(() => {
+        async function connectApi() {
+            axios({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/api/login',
+                data: data
+            }).then(res => {
+                if (res.data.code == 200) {
+                    changeStatus();
+                    history.push("/pape");
+                } else {
+                    console.log(res.data);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+            // console.log(data);
+        }
+        connectApi();
+    }, [data]);
+
+    const onSubmit = (values) => {
+        // console.log(values);
+        setData({
+            email: values.email,
+            password: values.password
+        });
     };
+
 
     return (
         <Row justify="center" align="middle" style={{ marginTop: 70 }}>
@@ -50,19 +62,27 @@ function Login(props) {
                         initialValues={{
                             remember: true,
                         }}
-                        onFinish={onFinish}
+                        onFinish={onSubmit}
                     >
 
                         <Form.Item
-                            name="username"
+                            name="email"
                             rules={[
                                 {
                                     required: true,
                                     message: 'Please input your Username!',
                                 },
                             ]}
+
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                            <Input
+                                name="email"
+                                prefix={<UserOutlined className="site-form-item-icon" />}
+                                type="email"
+                                // onChange={handleChange}
+                                placeholder="email"
+                            // value={data.email} 
+                            />
                         </Form.Item>
                         <Form.Item
                             name="password"
@@ -72,11 +92,15 @@ function Login(props) {
                                     message: 'Please input your Password!',
                                 },
                             ]}
+
                         >
                             <Input
+                                name="password"
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
+                                // onChange={handleChange}
                                 placeholder="Password"
+                            // value={data.password}
                             />
                         </Form.Item>
                         <Form.Item>
